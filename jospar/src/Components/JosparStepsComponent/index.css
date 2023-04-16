@@ -1,0 +1,31 @@
+.steps-menu{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.steps-container{
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+}
+
+.step-text{
+    color: #000;
+    text-decoration:  none;
+    padding: 10px;
+    line-height: 10px;
+    margin: 0 0 20px 0;
+    width: 50%;
+    line-height: normal;
+}
+
+.active-step{
+    background: rgba(62, 107, 173, 0.25);
+    border-radius: 0 20px 20px 0;
+}
+
+.spec-step-container{
+    width: 50%;
+}
+

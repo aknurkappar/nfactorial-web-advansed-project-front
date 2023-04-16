@@ -1,0 +1,54 @@
+.select-time-container .home-header{
+    width: 60%;
+}
+
+.time-inputs{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 60%;
+}
+
+.time-inputs div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-inputs p{
+    font-size: 13px;
+}
+
+.time-inputs input{
+    border: 3px solid rgba(62, 107, 173, 0.5);
+    border-radius: 30px;
+    background: none;
+    padding: 10px;
+    width: 24px;
+    text-align: center;
+}
+
+.select-time-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.generate-button{
+    background: #3E6BAD;
+    border-radius: 20px;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 13px;
+    width: 280px;
+    text-align: center;
+    margin-top: 40px;
+    font-weight: bold;
+    cursor: pointer!important;
+}
+
+.generate-button:hover{
+    background: #33527f;
+}

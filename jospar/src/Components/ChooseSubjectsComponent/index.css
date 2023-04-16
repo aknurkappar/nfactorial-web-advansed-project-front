@@ -1,0 +1,14 @@
+.next-button{
+    background: #3E6BAD;
+    border-radius: 20px;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 13px;
+    width: 75px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.next-button:hover{
+    background: #33527f;
+}

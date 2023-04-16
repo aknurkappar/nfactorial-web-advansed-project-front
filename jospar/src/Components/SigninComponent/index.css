@@ -1,0 +1,69 @@
+.signin-container, .signup-container{
+    height: 100vh;
+    display: flex;
+}
+
+.signin-content, .signup-content{
+    width: 100%;
+    background:  #F4F4F4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signin-content{
+    height: 94vh;
+    margin-top: 25px;
+    border-radius: 30px;
+}
+
+.form-text-filed{
+    margin-bottom: 100px!important;
+    height: 50px;
+    width: 200px;
+}
+
+.sigin-form, .sigup-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sigin-button, .sigup-button, .sigup-image-button{
+    background: #3E6BAD!important;
+    border-radius: 20px!important;
+    border: none!important;
+    color: #F4F4F4!important;
+    margin-top: 10px!important;
+    font-weight: bold!important;
+    height: 45px!important;
+}
+.sigin-button:hover, .sigup-button:hover, .sigup-image-button:hover{
+    background: #365a90!important;
+}
+
+.sigin-button{
+    width: 300px!important;
+    margin-left: 35px!important; 
+}
+
+.form-footer{
+    color: #939393;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    margin-left: 35px;
+}
+
+.form-footer-button{
+    color: #3E6BAD!important;
+    cursor: pointer;
+}
+
+.form-footer-button:hover{
+    color: #264169!important;
+}
+
+

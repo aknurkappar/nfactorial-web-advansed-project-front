@@ -1,0 +1,33 @@
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8% 0 8% ;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    filter: drop-shadow(0px 5px 8px rgba(255, 255, 255, 0.25));
+    margin: 0 10% 0 10%;
+
+}
+
+.header-container img{
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 0 10px;
+}
+
+.header-container a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-text{
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.header-signin{
+    color: #fff;
+    cursor: pointer;
+}

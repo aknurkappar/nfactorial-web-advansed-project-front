@@ -1,0 +1,30 @@
+.topic-levels{
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-left: 50%;
+}
+
+.topic-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 15px;
+}
+
+.topic-title p{
+    font-size: 13px;
+    width: 47%;
+    margin-bottom: 20px;
+}
+
+.topic-options-container{
+    display: flex!important;
+    justify-content: space-between!important;
+    width: 100%;
+}
+
+.topic-options{
+    margin: 0!important;
+    margin-left: 40px!important;
+}

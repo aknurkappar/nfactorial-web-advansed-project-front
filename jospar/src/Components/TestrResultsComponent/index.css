@@ -1,0 +1,26 @@
+
+.test-result-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.test-result-container .home-header, .topic-list-container .home-header, .select-time-container .home-header{
+    width: 80%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.test-results p{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.test-results input{
+    width: 15px;
+    margin-left: 20px;
+    border: none;
+    background: none;
+}
