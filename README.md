@@ -11,4 +11,5 @@ To run project:
 
 	(open another terminal)
 	cd back
+	npm install
 	npm run dev
