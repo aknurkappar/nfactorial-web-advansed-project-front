@@ -6,6 +6,7 @@ To run project:
 
 	git clone "git@github.com:aknurkappar/nfactorial-web-advansed-project-front.git"
 	cd front
+	npm install
 	npm run dev
 
 	(open another terminal)
