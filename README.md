@@ -1,4 +1,4 @@
-# nfactorial-web-advansed-project-front
+# JOSPAR
 Hi! It's my final project in nFactorial Full stack course!
 "JospaR" helps high school students to correctly manage their study plan for UNT.
 
