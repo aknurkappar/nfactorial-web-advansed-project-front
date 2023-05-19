@@ -27,7 +27,11 @@
     font-size: 24px;
 }
 
-.header-signin{
+.header-signin, .header-text-button{
     color: #fff;
     cursor: pointer;
+}
+
+.header-text{
+    color: #fff;
 }

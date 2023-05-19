@@ -2,12 +2,70 @@ import "./index.css";
 import { Link } from "react-scroll";
 import { Box, IconButton, Button, OutlinedInput, InputLabel, InputAdornment, FormControl } from '@mui/material';
 import { Visibility, VisibilityOff, AddPhotoAlternate }from '@mui/icons-material';
-import React from "react";
+import React, { useEffect } from "react";
+import { BASE_URL } from "../../constants";
+import { useState } from "react";
+import { User } from "../../model/User";
+import { ChangeEvent } from "react";
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import userSlice from "../../store/userSlice";
 
 
 function SignupComponent(){
-    const [showPasswordFirst, setPasswordFirst] = React.useState(false);
-    const [showPasswordSecond, setPasswordSecond] = React.useState(false);
+    const [showPasswordFirst, setPasswordFirst] = useState(false);
+    const [showPasswordSecond, setPasswordSecond] = useState(false);
+    
+    const [name, setName]  = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordCheck, setPasswordCheck] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
+    const [errorMessageActive, setErrorMessageActive] = useState(false)
+
+    const register = async () => {
+        const newUser = {
+            "name" : name,
+            "email" : email,
+            "password" : password,
+            "passwordCheck" : passwordCheck
+        }
+
+        await axios.post(`${BASE_URL}users/register/`, newUser)
+        .then(()=>{
+            console.log(newUser)
+            window.scrollTo({top : 0, behavior : "smooth"})
+            setName("")
+            setEmail("")
+            setPassword("")
+            setPasswordCheck("")
+        })
+        .catch( error => {
+            setErrorMessage(error.response.data.message)
+            setErrorMessageActive(true)
+            setTimeout(()=>{
+                setErrorMessageActive(false)
+            }, 3000)
+        })
+    }
+
+    const handleNameInputChange = (event : ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value)
+    }
+
+
+    const handleEmailInputChange = (event : ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value)
+    }
+
+    const handlePasswordInputChange = (event : ChangeEvent<HTMLInputElement>) => {
+        setPassword(event.target.value)
+    }
+
+    const handlePasswordCheckInputChange = (event : ChangeEvent<HTMLInputElement>) => {
+        setPasswordCheck(event.target.value)
+    }
+
+    
     const handleClickShowPasswordFirst = () =>{
         setPasswordFirst(!showPasswordFirst)
     }
@@ -22,8 +80,9 @@ function SignupComponent(){
     return (
         <div id="signup" className="signup-container">
             <div className="signup-content">
+            <p className={`error-message ${errorMessageActive ? "error-message-active" : ""}`}>{errorMessage}</p>
                 <p className="signup-header">Жоспарға қосыл!</p>
-
+    
                 <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <div className="sigup-form">
                     <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
@@ -32,6 +91,8 @@ function SignupComponent(){
                             id="outlined-adornment"
                             label="Есіміңіз"
                             style={{ width: '300px', borderRadius:'17px'}}
+                            value = {name}
+                            onChange={handleNameInputChange}
                         />
                     </FormControl>
 
@@ -41,6 +102,8 @@ function SignupComponent(){
                             id="outlined-adornment"
                             label="Email"
                             style={{ width: '300px', borderRadius:'17px'}}
+                            value = {email}
+                            onChange={handleEmailInputChange}
                         />
                     </FormControl>
                     
@@ -64,6 +127,8 @@ function SignupComponent(){
                             }
                             label="Құпиясөз"
                             style={{ width: '300px', borderRadius:'17px', padding: ' 0 20px 0 0'}}
+                            value = {password}
+                            onChange={handlePasswordInputChange}
                         />
                     </FormControl>
 
@@ -86,6 +151,8 @@ function SignupComponent(){
                             }
                             label="Құпиясөзді қайта енгізіңіз"
                             style={{ width: '300px', borderRadius:'17px', padding: ' 0 20px 0 0'}}
+                            value = {passwordCheck}
+                            onChange={handlePasswordCheckInputChange}
                         />
                     </FormControl>
 
@@ -94,7 +161,7 @@ function SignupComponent(){
                     Сурет таңдау
                         <input type="file" accept="image/png, image/jpeg, image/jpg" hidden/>
                     </Button>
-                        <Button className='sigup-button'>Тіркелу</Button>
+                        <Button className='sigup-button' onClick={register}>Тіркелу</Button>
                     </div>
 
                     </div>

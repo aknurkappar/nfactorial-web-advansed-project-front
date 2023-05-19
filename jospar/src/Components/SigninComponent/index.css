@@ -66,4 +66,21 @@
     color: #264169!important;
 }
 
+.error-message{
+    background: #a04343;
+    color: aliceblue;
+    font-size: 13px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    opacity: 0;
+    transition: opacity .5s;
+    margin-left: 35px;
+}
 
+.error-message-active{
+    opacity: 1;
+    transition: opacity .5s;
+}

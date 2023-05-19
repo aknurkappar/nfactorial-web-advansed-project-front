@@ -2,19 +2,24 @@ import { Box, CircularProgress, Typography } from "@mui/material"
 import "./index.css"
 import { useEffect, useState } from "react"
 
-function LoadingComponent(isLoading : boolean, setLoading : void){
+function LoadingComponent(){
 
+    const [isLoading, setLoading] = useState(true)
     const [percentage, setPercentage] = useState(0)
 
     useEffect(() => {
-        while(percentage < 100){
+        setTimeout(()=>{
             setPercentage(percentage+10)
+        }, 1000)
+        if(percentage == 100){
+            setLoading(false)
         }
     }, [percentage])
-    
 
     return(
         <div className="loading-container">
+            {isLoading && 
+            
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <CircularProgress variant="determinate"/>
                 <Box
@@ -36,6 +41,10 @@ function LoadingComponent(isLoading : boolean, setLoading : void){
                     >{`${Math.round(percentage)}%`}</Typography>
                 </Box>
             </Box>
+            
+            }
+
+            {!isLoading && <div>Jospar is ready</div>}
         </div>
     )
 }

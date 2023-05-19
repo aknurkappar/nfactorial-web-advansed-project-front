@@ -1,11 +1,11 @@
 import { Checkbox, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material"
-import { AppState } from "../../types"
 import "./index.css"
 import React, { useEffect } from "react";
+import { useAppSelector } from "../../store";
 
 
-function ChooseTopicsComponent({ selectedSubjects } : AppState){
-
+function ChooseTopicsComponent(){
+    let testResults = useAppSelector(state => state.jospar.testResults)
     const [value, setValue] = React.useState('');
 
     const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -20,11 +20,11 @@ function ChooseTopicsComponent({ selectedSubjects } : AppState){
                 <p>Орташа</p>
                 <p>Таныс емеспін</p>
                 </div>
-
+                
             {
-                selectedSubjects[0].allTopics.map((topic, index) => (
+                testResults.map((topic, index) => (
                     <div key={index} className="topic-title">
-                        <p>{topic.title}</p>
+                        <p>{topic}</p>
                         <FormControl component="fieldset">
                             <RadioGroup value={value} onChange={handleChange}>
                                 <div className="topic-options-container">

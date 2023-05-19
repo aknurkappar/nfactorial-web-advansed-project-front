@@ -1,6 +1,5 @@
 import './App.css'
-import { useState } from 'react'
-import { BrowserRouter, Routes, Router, Route, useRoutes} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import WelcomeComponent from "./Components/WelcomeComponent/index"
 import HeaderComponent from "./Components/HeaderComponent/index"
 import SignupComponent from "./Components/SignupComponent/index"
@@ -12,37 +11,129 @@ import ChooseTopicsComponent from"./Components/ChooseTopicsComponent/index"
 import SelectTimeComponent from "./Components/SelectTimeComponent/index"
 import PageNotFoundComponent from "./Components/PageNotFoundComponent/index"
 import JosparStepsComponent from "./Components/JosparStepsComponent/index"
-import { useSelector } from 'react-redux';
-import { AppState } from "./types"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { BASE_URL } from './constants';
+import { useAppDispatch, useAppSelector } from './store';
+import { setSubjectAll } from './store/josparFormSlice';
+import { Subject } from './model/Subject';
 
 function App() {
 
-  const selectedSubjects = useSelector((state: AppState) => state.selectedSubjects);
+  // const localStorageToken = localStorage.getItem('token');
+  // const [localStorageTokenIsValid, setLocalStorageTokenIsValid] = useState(false)
+
+  // const checkValidToken = async () =>{
+  //   if(token){
+  //     await axios.get(`${BASE_URL}users/isValidToken/`,
+  //       {headers : {
+  //         'Content-Type' : 'application/json',
+  //         'jwt-token' : localStorageToken
+  //       }})
+  //     .then(response => {
+  //       setLocalStorageTokenIsValid(true)
+  //     }).catch(err =>{
+  //         console.log("error")
+  //     }) 
+  // }
+  // }
+
+
+let userId = useAppSelector(state => state.user.currentUserId)
+let token = useAppSelector(state => state.user.token)
+
+const [userName, setUserName] = useState("")
+const [userHaveJospar, setUserHaveJospar] = useState(false)
+const config = {
+  'Content-Type' : 'application/json',
+  'jwt-token' : token.toString(),
+}
+
+let allSubjects = useAppSelector(state => state.jospar.allSubjects)
+const dispatch = useAppDispatch()
+
+const getUserInfo = async () =>{
+  if(userId.length > 0){
+  await axios.get(`${BASE_URL}users/${userId}/`, {headers : config})
+  .then(response => {
+    setUserName(response.data.name)
+
+  }).catch((error : Error )=>{
+      console.log(error.message)
+  }) 
+ 
+  await axios.get(`${BASE_URL}jospar/${userId}/`)
+  .then(response => {
+      if(response.data.jospar.length != 0){
+          console.log(response.data.jospar)
+          setUserHaveJospar(true)
+      }
+  }).catch(err =>{
+      console.log("error")
+  })   
+}
+}
+
+const getSubjectList = async () =>{
+  await axios.get(`${BASE_URL}subject/`)
+  .then(response => {
+    dispatch(setSubjectAll({subjectList : response.data.subjectList}))
+  })
+  .catch((err : Error) => {
+      console.log("Error: ", err)
+  })
+
+}
+
+const josparjasaRoutes = ``
+
+useEffect(()=>{
+  getUserInfo()
+  getSubjectList()
+  
+})
 
   return (
 
     <div>
     <HeaderComponent/>
+
       <Routes>
-        <Route path="/" element = {<div>
-        <WelcomeComponent />
-        <SigninComponent />
-        <SignupComponent />
-      </div>} />
+
+        {userId.length == 0 && 
+          <Route path="/" element = {<div>
+          <WelcomeComponent />
+          <SigninComponent />
+          <SignupComponent />
+        </div>} />}
+
+        {userId.length > 0 && userHaveJospar && <Route path="/" element={<HomeComponent />}/>}
+        {!userHaveJospar && <Route path="/" element={<ChooseSubjectComponent />}/>}
+
+        <Route path="/josparjasa" element={<ChooseSubjectComponent />}/>
         
-        <Route path="home" element={<HomeComponent />}/>
-        <Route path="home/josparjasa" element={<ChooseSubjectComponent />}/>
-        <Route path="home/josparjasa/qadamdar" element= {<JosparStepsComponent />}>
-          <Route path="" element= {<TestResultsComponent selectedSubjects={selectedSubjects}/>}/>
-          <Route path="0" element= {<TestResultsComponent selectedSubjects={selectedSubjects}/>}/>
-          <Route path="1" element= {<ChooseTopicsComponent selectedSubjects={selectedSubjects}/>}/>
-          <Route path="2" element= {<ChooseTopicsComponent selectedSubjects={selectedSubjects}/>}/>
-          <Route path="3" element= {<ChooseTopicsComponent selectedSubjects={selectedSubjects}/>}/>
-          <Route path="4" element= {<ChooseTopicsComponent selectedSubjects={selectedSubjects}/>}/>
+        <Route path="/josparjasa/qadamdar" element= {<JosparStepsComponent />}>
+          <Route path="" element= {<TestResultsComponent />}/>
+          <Route path="0" element= {<TestResultsComponent />}/>
+          <Route path="1" element= {<ChooseTopicsComponent />}/>
+          <Route path="2" element= {<ChooseTopicsComponent />}/>
+          <Route path="3" element= {<ChooseTopicsComponent />}/>
+          <Route path="4" element= {<ChooseTopicsComponent />}/>
           <Route path="5" element= {<SelectTimeComponent />}/>
           <Route path="*" element= {<PageNotFoundComponent />}/>
         </Route>
-        <Route path="/home/josparlar/1" element={<HomeComponent/>} />
+
+        <Route path="/qadamdar" element= {<JosparStepsComponent />}>
+          <Route path="" element= {<TestResultsComponent />}/>
+          <Route path="0" element= {<TestResultsComponent />}/>
+          <Route path="1" element= {<ChooseTopicsComponent />}/>
+          <Route path="2" element= {<ChooseTopicsComponent />}/>
+          <Route path="3" element= {<ChooseTopicsComponent />}/>
+          <Route path="4" element= {<ChooseTopicsComponent />}/>
+          <Route path="5" element= {<SelectTimeComponent />}/>
+          <Route path="*" element= {<PageNotFoundComponent />}/>
+        </Route>
+        <Route path="/josparlar/1" element={<HomeComponent/>} />
         <Route/>
       </Routes>
     </div>

@@ -29,3 +29,32 @@
 .select-subject{
     width: 380px!important;
 }
+
+.next-icon{
+    color: #999999;
+    width: 30px;
+    height: 30px;   
+}
+
+.left-next-icon{
+    transform: rotate(-180deg);
+}
+
+.next-icon-active{
+    color: #3E6BAD;
+}
+
+.plan-header p{
+    /* width: 12.5%; */
+    height: 30px;
+}
+
+.plan-header{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.plan-container{
+    width: 100%;
+}
