@@ -8,10 +8,10 @@ router.get("/", async (req : Request, res : Response) => {
         return res.status(200).json({topicList : topicList})
 })
 
-router.get("/subject/:id", async (req : Request, res : Response) => {
-    const { subjectId } = req.params
+router.get("/subject/:name", async (req : Request, res : Response) => {
+    const { name } = req.params
 
-        const topicList = await topicModel.find({subjectId : subjectId})
+        const topicList = await topicModel.find({subjectName : name})
         return res.status(200).json({topicList : topicList})
 })
 
@@ -24,15 +24,15 @@ router.get("/:id", async (req : Request, res : Response) => {
 })
 
 router.post("/", async (req : Request, res : Response) => {
-    const { title, subjectId } = req.body
+    const { title, subjectName } = req.body
 
-        if(title == "" || subjectId == ""){
+        if(title == "" || subjectName == ""){
             return res.status(400).json({message :  "Not all fields are entered"})
         }
 
         const newTopic = new topicModel({
             title : title,
-            subjectId : subjectId
+            subjectName : subjectName
         })
 
         const savedTopic = await newTopic.save()

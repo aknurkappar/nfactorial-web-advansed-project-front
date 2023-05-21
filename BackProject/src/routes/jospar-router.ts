@@ -14,24 +14,28 @@ router.get("/:userId", async (req : Request, res : Response) => {
 })
 
 router.post("/", async (req : Request, res : Response) => {
-    const { userId, deadline } = req.body
+    const { userId, time } = req.body
 
         if(userId == ""){
-            return res.status(400).json({message :  "You need to login to get profile information"})
-        }
-
-        if(deadline == ""){
-            return res.status(400).json({message :  "Please, enter deadline for your jospar"})
+            return res.status(400).json({message :  "Something went wrong. Please, login again"})
         }
 
         const newJospar = new josparModel({
             userId : userId,
             startDate : new Date(),
-            deadline : deadline,
+            time : time,
+            isActive : false
         })
 
         const savedJospar = await newJospar.save()
-        res.json(savedJospar)
+        res.json({jospar : savedJospar})
+})
+
+router.put("/:josparId", async (req : Request, res : Response) => {
+    const { josparId } = req.params
+
+    const jospar = await josparModel.findOneAndUpdate({_id : josparId}, {$set: { isActive: true }}, {returnOriginal: false} )
+    res.json({jospar : jospar, josparId : josparId})
 })
 
 export default router

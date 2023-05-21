@@ -32,6 +32,10 @@ const getUserInfo = async () =>{
 }
 }
 
+const handleLogout = () => {
+  window.location.reload()
+}
+
 useEffect(()=>{
   getUserInfo()
 })
@@ -49,13 +53,17 @@ useEffect(()=>{
         </Link>
         }
 
-        {userId.length > 0 && 
+        {/* {userId.length > 0 && 
         <div className='header-text-button'> Менің кестелерім </div>
-        }
+        } */}
 
 
         {userId.length > 0 && 
         <div className='header-text' >{userName} </div>
+        }
+
+        {userId.length > 0 && 
+        <div className='header-text header-text-button' onClick={handleLogout}>Шығу</div>
         }
 
     </div>

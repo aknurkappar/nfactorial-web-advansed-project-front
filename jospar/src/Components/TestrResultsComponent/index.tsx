@@ -10,6 +10,7 @@ import { Subject } from "../../model/Subject";
 
 
 function TestResultsComponent(){
+    let currentStep = useAppSelector(state => state.jospar.currentStep)
 
     let subjectCombinations = useAppSelector(state => state.jospar.subjectCombinations)
     let subjectList = useAppSelector(state => state.jospar.subjectList)
@@ -81,7 +82,7 @@ function TestResultsComponent(){
             <p className="home-header">Соңғы рет тапсырған сынақ тестінің нәтижесін енгіз</p>
             <div className="test-results">
                {
-                subjectList.map((subject, index)=>(
+                subjectList.map((subject : Subject, index : number)=>(
                     {subject} &&
                     <p key={index}>
                         {subject.title} <span><input type="number" maxLength={2} value={testResultsTemp[index]} onChange={(event) => handleChange(parseInt(event.target.value), index)}/> / {subject.point}</span>
@@ -91,7 +92,7 @@ function TestResultsComponent(){
                }
             </div>
 
-            <RouterLink className='next-button' to="1" onClick={saveJosparForm}>Келесі</RouterLink>
+            <RouterLink className='next-button' to={`${currentStep}`} onClick={saveJosparForm}>Келесі</RouterLink>
             
         </div>
     )

@@ -17,6 +17,7 @@ import { BASE_URL } from './constants';
 import { useAppDispatch, useAppSelector } from './store';
 import { setSubjectAll } from './store/josparFormSlice';
 import { Subject } from './model/Subject';
+import LoadingComponent from './Components/LoadingComponent';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
   // }
   // }
 
+let currentStep = useAppSelector(state => state.jospar.currentStep)
 
 let userId = useAppSelector(state => state.user.currentUserId)
 let token = useAppSelector(state => state.user.token)
@@ -49,6 +51,7 @@ const config = {
   'jwt-token' : token.toString(),
 }
 
+let subjectList = useAppSelector(state => state.jospar.subjectList)
 let allSubjects = useAppSelector(state => state.jospar.allSubjects)
 const dispatch = useAppDispatch()
 
@@ -85,13 +88,12 @@ const getSubjectList = async () =>{
 
 }
 
-const josparjasaRoutes = ``
-
 useEffect(()=>{
   getUserInfo()
   getSubjectList()
+  console.log(currentStep)
   
-})
+}, [])
 
   return (
 
@@ -115,29 +117,33 @@ useEffect(()=>{
         <Route path="/josparjasa/qadamdar" element= {<JosparStepsComponent />}>
           <Route path="" element= {<TestResultsComponent />}/>
           <Route path="0" element= {<TestResultsComponent />}/>
-          <Route path="1" element= {<ChooseTopicsComponent />}/>
-          <Route path="2" element= {<ChooseTopicsComponent />}/>
-          <Route path="3" element= {<ChooseTopicsComponent />}/>
-          <Route path="4" element= {<ChooseTopicsComponent />}/>
+          <Route path=":currentStep" element= {<ChooseTopicsComponent subject={subjectList[currentStep]}/>}/>
           <Route path="5" element= {<SelectTimeComponent />}/>
+          <Route path="loading" element= {<LoadingComponent />}/>
           <Route path="*" element= {<PageNotFoundComponent />}/>
         </Route>
 
         <Route path="/qadamdar" element= {<JosparStepsComponent />}>
           <Route path="" element= {<TestResultsComponent />}/>
           <Route path="0" element= {<TestResultsComponent />}/>
-          <Route path="1" element= {<ChooseTopicsComponent />}/>
-          <Route path="2" element= {<ChooseTopicsComponent />}/>
-          <Route path="3" element= {<ChooseTopicsComponent />}/>
-          <Route path="4" element= {<ChooseTopicsComponent />}/>
+          <Route path=":currentStep" element= {<ChooseTopicsComponent subject={subjectList[currentStep]}/>}/>
           <Route path="5" element= {<SelectTimeComponent />}/>
+          <Route path="loading" element= {<LoadingComponent />}/>
           <Route path="*" element= {<PageNotFoundComponent />}/>
         </Route>
-        <Route path="/josparlar/1" element={<HomeComponent/>} />
+        <Route path="/josparlar" element={<HomeComponent/>} />
         <Route/>
       </Routes>
     </div>
   )
+
+    
+          {/* <Route path="1" element= {<ChooseTopicsComponent subject={subjectList[1]}/>}/>
+          <Route path="2" element= {<ChooseTopicsComponent subject={subjectList[2]}/>}/>
+          <Route path="3" element= {<ChooseTopicsComponent subject={subjectList[3]}/>}/>
+          <Route path="4" element= {<ChooseTopicsComponent subject={subjectList[4]}/>}/> */}
 }
+
+
 
 export default App

@@ -5,6 +5,8 @@ import userRouter from "./routes/user-router.js"
 import josparRouter from "./routes/jospar-router.js"
 import subjectRouter from "./routes/subject-router.js"
 import subjectCombinationsRouter from "./routes//subject-combinations-routes.js"
+import topicRouter from "./routes/topic-router.js"
+import taskTouter from "./routes/task-router.js"
 
 const app = express();
 app.use(express.json());
@@ -32,5 +34,7 @@ app.use("/users", userRouter);
 app.use("/jospar", josparRouter);
 app.use("/subject", subjectRouter);
 app.use("/subjectcombinations", subjectCombinationsRouter);
+app.use("/topic", topicRouter);
+app.use("/task", taskTouter);
 
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}`));

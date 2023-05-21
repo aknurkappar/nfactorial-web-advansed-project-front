@@ -3,12 +3,14 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface UserState {
     currentUserId: String;
     token: String
+    josparId : String
 }
 
 
 const initialState: UserState = {
     currentUserId: "",
-    token : ""
+    token : "",
+    josparId : ""
 };
 
 
@@ -21,11 +23,14 @@ const userSlice = createSlice({
             state.token = action.payload.token
             console.log(state.currentUserId)
             console.log(state.token)
+        },
+        setJosparId : (state, action: PayloadAction<{id : String}>) => {
+            state.josparId = action.payload.id
+            console.log(state.josparId)
         }
-        
     }
 });
 
-export const { setCurrentUser } = userSlice.actions
+export const { setCurrentUser, setJosparId} = userSlice.actions
 
 export default userSlice.reducer;
