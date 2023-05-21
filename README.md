@@ -13,3 +13,6 @@ To run project:
 	cd back
 	npm install
 	npm run dev
+	
+	Use this email to login: test@gmail.com
+	password: test
